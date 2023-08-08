@@ -21,7 +21,8 @@ exceptiongroup==1.1.2
 executing==1.2.0
 Fiona==1.9.4.post1
 folium==0.14.0
-GDAL==3.6.4
+# GDAL==3.6.4
+GDAL
 geographiclib==2.0
 geopandas==0.13.2
 geopy==2.3.0
