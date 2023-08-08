@@ -1,13 +1,27 @@
 from neo4j import GraphDatabase
 from unidecode import unidecode
+import streamlit as st
+
+# Case : fonctionnement en local
+try:
+    from credentials import *
+    URI = AURA_CONNECTION_URI
+    USER = AURA_USERNAME
+    PASS = AURA_PASSWORD
+except:
+    pass
+
+# Case : fonctionnement APP streamlit
+try:
+    URI = st.secrets["AURA_CONNECTION_URI"]
+    USER = st.secrets["AURA_USERNAME"]
+    PASS = st.secrets["AURA_PASSWORD"]
+except:
+    pass
 
 def get_neo4j_results_of(query):
-    AURA_CONNECTION_URI = "neo4j+s://72c2ce2d.databases.neo4j.io"
-    AURA_USERNAME = "neo4j"
-    AURA_PASSWORD = "iZFjjdEUnier6yXdph9O1bIOVOe_c82S1zDFcdzf5Ds"
-
     # Driver instantiation
-    driver = GraphDatabase.driver(AURA_CONNECTION_URI, auth=(AURA_USERNAME, AURA_PASSWORD))
+    driver = GraphDatabase.driver(URI, auth=(USER, PASS))
 
     # Create a driver session
     with driver.session() as session:

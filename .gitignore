@@ -1,2 +1,3 @@
 __pycache__/neo4jtools.cpython-311.pyc
 .DS_Store
+credentials.py
