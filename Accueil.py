@@ -6,16 +6,59 @@ import folium
 from folium import plugins
 from streamlit_folium import st_folium
 import time
+import plotly.graph_objects as go
+from streamlit_extras.mention import mention
 
 # Personnal modules
 from neo4jtools import *
 
+page_config_params = {"layout": "wide",
+                      "page_title": "Mémoire | Université Lyon 3 | 2023 | Les agents de change auprès de la Bourse de Lyon (1815 - 1852)",
+                      "page_icon": "https://www.univ-lyon3.fr/images/logo.png"}
+
+def make_sidebar_foot(url):
+    sidebar_data = {"label": "Code source de la page",
+                "icon": "github",
+                "hint": {"body": "Double-cliquer dans un graphique pour réinitialiser l'échelle des axes et le niveau de zoom",
+                         "icon": "💡"},
+                "image": "https://www.univ-lyon3.fr/medias/photo/udl-lyon3-web_1493035760450-png?ID_FICHE=239744&INLINE=FALSE",
+                "markdown": "**Antoine LAVACQUERY**  \n*Master 2 - Construction des sociétés contemporaines  \nMaster 2 - Humanités numériques  \n2022 - 2023*"
+                }
+    with st.sidebar:
+        mention(
+            label=sidebar_data["label"],
+            icon=sidebar_data["icon"],
+            url=url,
+        )
+        st.success(**sidebar_data["hint"])
+        st.image(sidebar_data["image"])
+        st.markdown(sidebar_data["markdown"])
+
+st.set_page_config(**page_config_params)
+make_sidebar_foot("https://github.com/AntoineLavacquery/history-board-Lyon-M2-2023")
+
 title = "Les agents de change auprès de la Bourse de Lyon (1815 - 1852)"
-st.set_page_config(
-    page_title=f"Mémoire | Université Lyon 3 | 2023 | {title}",
-    page_icon="https://www.univ-lyon3.fr/images/logo.png"
+
+st.markdown("## " + title)
+
+
+st.markdown(
+    """
+    Streamlit is an open-source app framework built specifically for
+    Machine Learning and Data Science projects.
+    **👈 Select a demo from the sidebar** to see some examples
+    of what Streamlit can do!
+    #### Want to learn more?
+    - Check out [streamlit.io](https://streamlit.io)
+    - Jump into our [documentation](https://docs.streamlit.io)
+    - Ask a question in our [community
+        forums](https://discuss.streamlit.io)
+    ### See more complex demos
+    - Use a neural net to [analyze the Udacity Self-driving Car Image
+        Dataset](https://github.com/streamlit/demo-self-driving)
+    - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
+"""
 )
-st.title(title)
 
 
 query = """
@@ -26,7 +69,7 @@ RETURN n0, re0.date_début, re0.date_fin, rv.date_acte_cession, n1, re1.date_dé
 """
 
 results = get_neo4j_results_of(query)
-# results
+
 
 all = []
 for result in results:
@@ -70,12 +113,8 @@ def connect_strands(all):
                 return
 
 connect_strands(all)
-all
 
 
-
-
-import plotly.graph_objects as go
 
 fig = go.Figure()
 # Set axes properties

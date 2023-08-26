@@ -1,4 +1,3 @@
-# Global modules
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -7,15 +6,13 @@ from folium import plugins
 from streamlit_folium import st_folium
 import time
 
-# Personnal modules
 from neo4jtools import *
+from Accueil import page_config_params, make_sidebar_foot
 
-title = "Les agents de change auprès de la Bourse de Lyon (1815 - 1852)"
-st.set_page_config(
-    page_title=f"Mémoire | Université Lyon 3 | 2023 | {title}",
-    page_icon="https://www.univ-lyon3.fr/images/logo.png"
-)
-st.title(title)
+st.set_page_config(**page_config_params)
+make_sidebar_foot("https://github.com/AntoineLavacquery/history-board-Lyon-M2-2023")
+
+st.markdown("""## Répartition géographique""")
 
 # query = """
 # MATCH (h:HOMME)-[:EXERCE]->(a:ACTIVITÉ {nom:'Agent de change'})
@@ -49,15 +46,11 @@ for item in data:
     else:
         d["activite"] = None
     final_data.append(d)
-
 for d in final_data:
     if d["date_debut"]:
         d["date_debut"] = d["date_debut"].to_native()
     if d["date_fin"]:
         d["date_fin"] = d["date_fin"].to_native()
-
-final_data
-# Conversion en DataFrame pandas
 df = pd.DataFrame(final_data)
 
 
@@ -91,12 +84,7 @@ for index, row in grouped_df.iterrows():
 grouped_df.drop(columns=['noms'], inplace=True)
 
 # Affichage du DataFrame final
-grouped_df
-
-
-
-
-
+# grouped_df
 
 
 
@@ -117,6 +105,7 @@ for year in years:
         if isinstance(grouped_df[year][i], list):
             # Le contenus de la cellule (c à d : liste de noms des agents de change) est stocké dans "residents"
             residents = grouped_df[year][i]
+            popup_txt = "<br>".join(residents)
             # Idem pour longitude et latitude
             longitude = grouped_df["longitude"][i]
             latitude = grouped_df["latitude"][i]
@@ -126,7 +115,7 @@ for year in years:
             # Définition du point qui sera ajouté sur la carte (infos sur "time" -> voir cellule markdown plus bas)
             point = {
                 "time": "20" + str(year)[2:],
-                "popup": residents,
+                "popup": popup_txt,
                 "coordinates": [longitude, latitude],
                 "score": score
             }
@@ -154,7 +143,7 @@ features = [
     for point in points
 ]
 
-m = folium.Map(location=[45.766095, 4.834338],
+m = folium.Map(location=[45.765, 4.835],
                zoom_start=15,
                attr="ign.fr",
                tiles='https://wxs.ign.fr/cartes/geoportail/wmts?'+
@@ -168,7 +157,7 @@ folium.raster_layers.WmsTileLayer(url = 'https://wxs.ign.fr/cartes/geoportail/r/
                                   transparent = True, 
                                   control = True,
                                   fmt="image/png",
-                                  name = 'energy',
+                                  name = 'État-major (1820-1866)',
                                   overlay = True,
                                   show = True,
                                   ).add_to(m)
@@ -187,4 +176,5 @@ plugins.TimestampedGeoJson(
     duration="P1Y",
 ).add_to(m)
 
-st_folium(m, width=2000, returned_objects=[])
+st.markdown("Parler du fait que les années n'ont que les deux chiffres de la fin à cause du temps UNIX universel.")
+st_folium(m, use_container_width=True, returned_objects=[])

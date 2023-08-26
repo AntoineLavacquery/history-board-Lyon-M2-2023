@@ -1,3 +1,14 @@
 __pycache__/neo4jtools.cpython-311.pyc
+__pycache__/Accueil.cpython-311.pyc
+__pycache__/credentials.cpython-311.pyc
 .DS_Store
-credentials.py
+.streamlit/secrets.toml
+output/df_fam_yn.csv
+output/df_other_yn.csv
+output/df_yc.csv
+output/df_yn.csv
+output/df.csv
+output/lieux_naissance_adc.png
+output/lieux_naissance_ep_adc.png
+output/villes_naissance.csv
+notebooks/credentials.py
