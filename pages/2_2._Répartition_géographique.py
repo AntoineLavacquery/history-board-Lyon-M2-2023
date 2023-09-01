@@ -209,7 +209,7 @@ st.markdown(
     Sur le versant du paramétrage de cette géovisualisation un paramètre propre aux études en histoire complique le fonctionnement de
     la visualisation. Très peu documentée au moment de réaliser cette étude, une erreur survient systématiquement au sein du paramètre
     définissant les années lorsque nous passons notre tranche du XIXe siècle. Il s’avère en effet que le système de gestion du temps s’appuie 
-    sur l’heure Unix (ou Posix) fondée sur le nombre de seconde écoulée depuis la 1er janvier 1970 à minuit. Toute date antérieure à
+    sur l’heure Unix (ou Posix) fondée sur le nombre de seconde écoulée depuis le 1er janvier 1970 à minuit. Toute date antérieure à
     cette seconde zéro provoque le dysfonctionnement du module. Il est donc nécessaire, dans l’état actuel du code de ces bibliothèques
     de "tricher" sur les dates. Par conséquent, deux siècles ont été ajoutés à nos dates pour permettre le fonctionnement du code.
     Afin de ne pas perturber la lecture de l’interface, nous avons choisi de représenter les années seulement avec les deux derniers

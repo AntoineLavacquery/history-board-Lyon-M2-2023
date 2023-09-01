@@ -10,7 +10,7 @@ from neo4jtools import *
 from Accueil import page_config_params, make_sidebar_foot
 
 st.set_page_config(**page_config_params)
-make_sidebar_foot("https://github.com/AntoineLavacquery/history-board-Lyon-M2-2023/blob/main/pages/4_4._Origines_sociales.py")
+make_sidebar_foot("https://github.com/AntoineLavacquery/history-board-Lyon-M2-2023/blob/main/pages/6_6._Explorateur de la base de données.py")
 
 st.markdown("""## 6. Explorateur de la base de données""")
 
