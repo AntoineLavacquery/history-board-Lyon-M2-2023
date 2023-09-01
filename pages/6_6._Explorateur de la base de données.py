@@ -12,27 +12,30 @@ from Accueil import page_config_params, make_sidebar_foot
 st.set_page_config(**page_config_params)
 make_sidebar_foot("https://www.univ-lyon3.fr/medias/photo/udl-lyon3-web_1493035760450-png?ID_FICHE=239744&INLINE=FALSE")
 
-st.markdown("""## Explorateur de la base de données""")
+st.markdown("""## 6. Explorateur de la base de données""")
+
+st.markdown("""Cette page donne un apperçu de la base de donnée de l'organisation des données au sein de la base Neo4J.
+            L'affichage qui suit sert d'exemple, en affichant les transmission de charges entre les agents de change.""")
 
 # --- Tous les agents de change entre 1815 et 1852
 query = """
 MATCH (v)-[vc:VENTE_CHARGE {type_charge: "agent de change"}]-(a)
 RETURN v, vc, a
 """
+
+
 data = get_neo4j_results_of(query)
-# data
 
 nodes = []
 edges = []
 
-# Initialiser un ensemble vide
+# Ensemble vide
 noms_vus = set()
-
 for entry in data:
     nom = entry["v"]["nom"]
     if nom not in noms_vus:
         nodes.append(Node(id=nom, label=nom, size=25, shape="circularImage", image="https://drive.google.com/file/d/1PT1OSB8rV1rEs8eqiEKOuPQK8bittsS8/view?usp=sharing"))
-        noms_vus.add(nom)  # Ajouter le nom à l'ensemble
+        noms_vus.add(nom)
 
 for entry in data:
     source = entry["v"]["nom"]
@@ -43,16 +46,18 @@ for entry in data:
 
 config = Config(width=1000,
                 height=700,
-                directed=True, 
+                directed=False, 
                 physics=True, 
                 hierarchical=False,
-                use_container_width=True
+                use_container_width=True,
+                stabilize=False
                 # **kwargs
                 )
 
-return_value = agraph(nodes=nodes, 
+graph, cypher = st.tabs(["Graphique", "Requête"])
+with graph:
+    return_value = agraph(nodes=nodes, 
                       edges=edges, 
                       config=config)
-
-with st.expander("Voir la requête"):
-    st.write(query)
+with cypher:
+    st.code(query, language="cypher", line_numbers=True)

@@ -1,4 +1,5 @@
 # Global modules
+import plotly.express as px
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -8,6 +9,7 @@ from streamlit_folium import st_folium
 import time
 import plotly.graph_objects as go
 from streamlit_extras.mention import mention
+from datetime import datetime
 
 # Personnal modules
 from neo4jtools import *
@@ -37,150 +39,54 @@ def make_sidebar_foot(url):
 st.set_page_config(**page_config_params)
 make_sidebar_foot("https://github.com/AntoineLavacquery/history-board-Lyon-M2-2023")
 
-title = "Les agents de change auprès de la Bourse de Lyon (1815 - 1852)"
+title = "Les agents de change auprès de la Bourse de Lyon, première moitié du XIXe siècle"
 
 st.markdown("## " + title)
 
 
 st.markdown(
     """
-    Streamlit is an open-source app framework built specifically for
-    Machine Learning and Data Science projects.
-    **👈 Select a demo from the sidebar** to see some examples
-    of what Streamlit can do!
-    #### Want to learn more?
-    - Check out [streamlit.io](https://streamlit.io)
-    - Jump into our [documentation](https://docs.streamlit.io)
-    - Ask a question in our [community
-        forums](https://discuss.streamlit.io)
-    ### See more complex demos
-    - Use a neural net to [analyze the Udacity Self-driving Car Image
-        Dataset](https://github.com/streamlit/demo-self-driving)
-    - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
-"""
+    ---
+    #### Présentation
+    Nous présentons, au travers de cette interface, la **mise en oeuvre et le regroupement des visualisations** développées pour
+    argumenter le propos de notre étude sur le groupe des agents de change lyonnais de la première moitiée du XIXe siècle. L'idée poursuivie au sein de ces
+    pages n'est pas de copier ou reformuler le propos tenus au sein du mémoire ou au sein des annexes consacrées aux humanités numériques, mais 
+    bien d'expliquer davantage et avec une orientation plus technique les caractéristiques de ces visualisations.
+
+    Nous détaillons ici les grandes différences avec les versions "papiers" du le mémoire :
+    1. Une partie des visualisations contenue au sein de ces pages ne sont pas disponibles ici.
+    2. Elles sont toutes interactives. Cette interactivité peut être **faible**, par exemple dans le cas du diagramme en barre
+    sur le prix des charges ou **forte** voire **indispensables**, comme dans le cas de la visualisation de la répartition géographique.
+    3. Le plus souvent, nous présentons les données ayant servies à constituer les visualisation mais toujours en second plan (onglet ou menu déroullant).
+    Le fait qu'il soit nécessaire de consulter ces pages dans certains cas nous a conduit à ne pas obstruer l'information les données brutes.
+    L'interface est prévue pour être **consultée rapidemen**, pendant la lecture.
+
+    Le propos que nous adoptons dans ces pages cherche avant tout à être succint. L'idée est d'expliquer les informations essentielles
+    pour comprendre les démarches qui ont initié les visualisations. Nous expliquons également les raisons nous ayant conduit à en effectuer
+    certaines plutôt que d'autres.
+
+    #### Code source
+    Sur les traitements informatiques qui ne trouvent pas leurs place au sein de cette interface sont disponibles en ligne :
+    https://github.com/AntoineLavacquery/history-board-Lyon-M2-2023/tree/main/notebooks. Surtout utilisés
+    en tant que qu'outils facilitateur de la recherche (ou même simplement d'experimentation), ils n'ont pas vocation à être présentés
+    en tant que tel.
+    """
 )
 
-
-query = """
-MATCH (n0)-[re0:EXERCE]->(a:`ACTIVITÉ` {nom: "Agent de change"}),
-(n1)-[re1:EXERCE]->(a:`ACTIVITÉ` {nom: "Agent de change"}),
-(n0)-[rv:VENTE_CHARGE {type_charge: "agent de change"}]->(n1)
-RETURN n0, re0.date_début, re0.date_fin, rv.date_acte_cession, n1, re1.date_début, re1.date_fin
-"""
-
-results = get_neo4j_results_of(query)
-
-
-all = []
-for result in results:
-    person0 = {
-        "nom": result["n0"]["nom"],
-        "date_debut": result["re0.date_début"],
-        "date_fin": result["re0.date_fin"]
-        }
-    person1 = {
-        "nom": result["n1"]["nom"],
-        "date_debut": result["re1.date_début"],
-        "date_fin": result["re1.date_fin"],
-        "date_acte_cession": result["rv.date_acte_cession"]
-        }
-    all.append([person0, person1])
-
-def connect_strands(all):
-    for i in range(len(all)):
-        strand_i = all[i]
-        person0 = strand_i[0]
-        person1 = strand_i[-1]
-        person1_light = person1.copy()
-        del person1_light["date_acte_cession"]
-
-        for j in range(i + 1, len(all)):
-            strand_j = all[j]
-            other_person0 = strand_j[0]
-            other_person1 = strand_j[-1]
-            other_person1_light = other_person1.copy()
-            del other_person1_light["date_acte_cession"]
-
-            if person0 == other_person1_light:
-                all[j] += strand_i[1:]
-                all.remove(strand_i)
-                connect_strands(all)
-                return
-            if person1_light == other_person0:
-                all[i] += strand_j[1:]
-                all.remove(strand_j)
-                connect_strands(all)
-                return
-
-connect_strands(all)
+st.error("""En cas d'erreur ou de blocage dans la période avant soutenance, ne pas hésiter à m'envoyer un mail :
+         antoine.lavacquery@univ-lyon3.fr.
+         """,
+         icon="⚠️")
 
 
 
-fig = go.Figure()
-# Set axes properties
-fig.update_xaxes(range=[1800, 1860], showgrid=True, title_text="Années")
-fig.update_yaxes(range=[0, 30], title_text="Charges d'agent de change")
-fig.update_layout(title="La transmission des charges d'agents de change entre 1815 et 1852", width=700, height=500)
-
-
-fig.add_trace(go.Scatter(
-    x=[1.5, 4.5],
-    y=[0.75, 0.75],
-    text=["Unfilled Rectangle", "Filled Rectangle"],
-    mode="text",
-))
-
-for i in range(len(all)):
-    strand = all[i]
-    for j in range(len(strand)):
-        if j > 0:
-            previous = strand[j - 1]
-        guy = strand[j]
-        if j < len(strand) - 1:
-            next = strand[j + 1]
-        
-        if "date_acte_cession" in guy and guy["date_acte_cession"]:
-            annee_debut = guy["date_acte_cession"].year
-        elif "date_debut" in guy and guy["date_debut"]:
-            annee_debut = guy["date_debut"].year
-        elif previous and "date_fin" in previous and previous["date_fin"]:
-             annee_debut = previous["date_fin"].year
-        
-        if "date_fin" in guy and guy["date_fin"]:
-            annee_fin = guy["date_fin"].year
-        elif next and "date_acte_cession" in next and next["date_acte_cession"]:
-            annee_fin = next["date_acte_cession"].year
-        elif next and "date_debut" in next and next["date_debut"]:
-            annee_fin = next["date_debut"].year
-        
-        try:
-            fig.add_shape(
-                type="rect",
-                x0=annee_debut,
-                x1=annee_fin,
-                y0=i,
-                y1=i+0.8,
-                line=dict(color="RoyalBlue")
-                )
-        except:
-            continue
 
 
 
-# # Add shapes
-# fig.add_shape(type="rect",
-#     x0=1815, y0=5, x1=1820, y1=6,
-#     line=dict(color="RoyalBlue"),
-# )
-# fig.add_shape(type="rect",
-#     x0=1820, y0=5, x1=1828, y1=6,
-#     line=dict(
-#         color="RoyalBlue",
-#         width=2,
-#     ),
-#     fillcolor="LightSkyBlue",
-# )
-# fig.update_shapes(dict(xref='x', yref='y'))
 
-# Plot!
-st.plotly_chart(fig, use_container_width=True)
+
+
+
+
+
+
