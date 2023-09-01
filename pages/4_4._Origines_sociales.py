@@ -9,7 +9,7 @@ from neo4jtools import *
 from Accueil import page_config_params, make_sidebar_foot
 
 st.set_page_config(**page_config_params)
-make_sidebar_foot("https://www.univ-lyon3.fr/medias/photo/udl-lyon3-web_1493035760450-png?ID_FICHE=239744&INLINE=FALSE")
+make_sidebar_foot("https://github.com/AntoineLavacquery/history-board-Lyon-M2-2023/blob/main/pages/4_4._Origines_sociales.py")
 
 h = 500
 # -[:EXERCE]->(pp)
@@ -80,6 +80,7 @@ fig1_bar = px.bar(df_pp_count1,
               title="Graphique 4.B. : Diagramme en bâton des professions du père des épouses des agents de change",
               hover_data=['effectif'],
               color='pp',
+              height=h,
               color_discrete_sequence=px.colors.qualitative.Set2)
 
 fig1_pie = px.pie(df_pp_count1,
@@ -87,6 +88,7 @@ fig1_pie = px.pie(df_pp_count1,
               values='effectif',
               title='Graphique 4.B. : Diagramme sectoriel des professions du père des épouses des agents de change',
               hover_data=['effectif'],
+              height=h,
               color_discrete_sequence=px.colors.qualitative.Set2)
 
 st.markdown(f"""
@@ -94,13 +96,8 @@ st.markdown(f"""
 
             Cette page décrit statistiquement les origines sociales des agents de change. Nous choisissons de cronstruire les graphiques,
             à partir des données profession du père des agents de change et du père de leurs épouses. Nous récupérerons **{len(df0)}** cas pour lesquels
-            nous connaissons au moins une profession. Pareillement, la répartition dans le cas des épouse nous utilisons de **{len(df1)}** individus.
+            nous connaissons au moins une profession. Pareillement, la répartition dans le cas des épouse nous utilisons **{len(df1)}** individus.
             """)
-
-# st.markdown("""
-#             #### Répartition des professions des pères des agents de change
-#             Ipsum lorem
-#             """)
 
 tab0_pie, tab0_bar, tab0_q = st.tabs(["Diagramme sectoriel", "Diagramme en bâton", "Requête"])
 with tab0_pie:
@@ -112,7 +109,6 @@ with tab0_q:
 
 st.markdown("""
             #### Répartition des professions des pères des épouses des agents de change
-            Ipsum lorem
             """)
 
 tab1_pie, tab1_bar, tab1_q = st.tabs(["Diagramme sectoriel", "Diagramme en bâton", "Requête"])

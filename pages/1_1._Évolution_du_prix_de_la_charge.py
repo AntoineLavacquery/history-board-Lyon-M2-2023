@@ -10,7 +10,7 @@ from neo4jtools import *
 from Accueil import page_config_params, make_sidebar_foot
 
 st.set_page_config(**page_config_params)
-make_sidebar_foot("https://github.com/AntoineLavacquery/history-board-Lyon-M2-2023")
+make_sidebar_foot("https://github.com/AntoineLavacquery/history-board-Lyon-M2-2023/blob/main/pages/1_1._Évolution_du_prix_de_la_charge.py")
 
 population = len(get_neo4j_results_of("""
                                   MATCH (v)-[vc:VENTE_CHARGE]->(a)
@@ -101,7 +101,7 @@ fig.add_trace(
 )
 
 # Set the layout with updated y-axis ranges and fixed x-axis range
-fig.update_layout(title_text="Graphique 1.A. Prix moyen mensuel et Durée de charge de janvier 1841 à juin 1860")
+fig.update_layout(title_text="Graphique 1.A. : Prix moyen mensuel et Durée de charge de janvier 1841 à juin 1860")
 fig.update_xaxes(title_text="Date", fixedrange=True)
 fig.update_yaxes(title_text="Prix moyen", range=[0, 350000], secondary_y=False)
 fig.update_yaxes(title_text="Durée d'occupation de la charge en années", range=[0, 35], secondary_y=True)
@@ -137,11 +137,11 @@ with query_tab:
 st.markdown(f"""
         #### Typologie des données
         Dans le périmètre de notre base de données, la population totale des agents de change est de 247 individus.
-        Sur ce nombre, nous connaissons des informations sur les vente pour {population} charges. Sur ces charges,
-        nous nous disposon de {len(df_org)} dont nous connaissons suffisemment d'information pour la construction de notre graphique.
+        Sur ce nombre, nous connaissons des informations sur les ventes pour {population} charges. Nous disposons
+        de {len(df_org)} charges dont nous connaissons suffisemment d'information pour la construction de notre graphique.
         
         Ainsi, la sélection de l'échantillon est surtout une question de contrainte. L'individu statistique est un charge d'agent de change.
-        Elle nous donne des informations sur un acheteur et un vendeur par sa nature même de relation dans la base de données.
+        Elle nous donne des informations sur un acheteur et un vendeur puisqu'elle prend le forme même de relation dans la base de données.
         Nous construisons ici une visualisation simple, à partir d'un petit échantillon de valeurs quantitatives continues, afin de constater et
         mettre en corrélation les tendances avec des informations extérieures à ses données. 
         """)

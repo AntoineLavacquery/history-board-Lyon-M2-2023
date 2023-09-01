@@ -9,7 +9,7 @@ from neo4jtools import *
 from Accueil import page_config_params, make_sidebar_foot
 
 st.set_page_config(**page_config_params)
-make_sidebar_foot("https://github.com/AntoineLavacquery/history-board-Lyon-M2-2023")
+make_sidebar_foot("https://github.com/AntoineLavacquery/history-board-Lyon-M2-2023/blob/main/pages/3_3._Statistiques_sur_les_durées_de_charge.py")
 
 # ******************************
 # Requêtes vers la base de données
@@ -326,15 +326,7 @@ st.plotly_chart(fig_moy_year, use_container_width=True)
 
 st.markdown("""
             Ce graphique représente la moyenne des durées d'exercice des agents de change par année.
-            
             """)
-
-
-
-
-
-
-
 
 
 

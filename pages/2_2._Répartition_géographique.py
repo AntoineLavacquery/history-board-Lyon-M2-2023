@@ -10,7 +10,7 @@ from neo4jtools import *
 from Accueil import page_config_params, make_sidebar_foot
 
 st.set_page_config(**page_config_params)
-make_sidebar_foot("https://github.com/AntoineLavacquery/history-board-Lyon-M2-2023")
+make_sidebar_foot("https://github.com/AntoineLavacquery/history-board-Lyon-M2-2023/blob/main/pages/2_2._Répartition_géographique.py")
 
 query = """
 MATCH (n)-[l:HABITE]->(p:LIEU), (n)-[:EXERCE]->(a:ACTIVITÉ {nom: "Agent de change"})
@@ -183,7 +183,7 @@ st.markdown("""## 2. Répartition géographique""")
 
 st.markdown(
     """
-    La carte suivant est interactive. Elle permet de faire défiler les lieux de résidence des agent de change au cours des années.
+    La carte suivante est interactive. Elle permet de faire défiler les lieux de résidence des agents de change au cours des années.
     Point important : seuls les deux derniers chiffres s'affichent pour signifier les années dans le lecteur de manipulation.
     """)
 
@@ -199,7 +199,7 @@ st.markdown(
     """
     La construction de la carte interactive passe par deux grandes étapes : la préparation des données et la paramétrisation
     des bibliothèques de géovisualisation. Nous nous concentrerons uniquement sur les points notables de ces étapes.
-    Les données source de la carte interactive sont représentées par des adresses. Stockée dans notre base de données, elles 
+    Les données source de la carte interactive sont représentées par des adresses. Stockées dans notre base de données, elles 
     sont représentées par des nœuds de type LIEU. À chaque lieu correspond un nœud. Nous avions envisagé d’encoder les villes
     dans un type de nœud distinct des noms de rue avant d’abandonner cette solution car elle ne présentait aucun avantage et rendait
     la manipulation confuse. Chaque nom de rue possède une propriété "adresse_historique" et "adresse_actuelle" et de coordonnées
@@ -210,8 +210,8 @@ st.markdown(
     la visualisation. Très peu documentée au moment de réaliser cette étude, une erreur survient systématiquement au sein du paramètre
     définissant les années lorsque nous passons notre tranche du XIXe siècle. Il s’avère en effet que le système de gestion du temps s’appuie 
     sur l’heure Unix (ou Posix) fondée sur le nombre de seconde écoulée depuis la 1er janvier 1970 à minuit. Toute date antérieure à
-    cette second zéro provoque le dysfonctionnement du module. Il est donc nécessaire, dans l’état actuel du code de ces bibliothèque
-    de tricher sur les dates. Par conséquent, deux siècles ont été ajoutés à nos dates pour permettre le fonctionnement du code.
+    cette seconde zéro provoque le dysfonctionnement du module. Il est donc nécessaire, dans l’état actuel du code de ces bibliothèques
+    de "tricher" sur les dates. Par conséquent, deux siècles ont été ajoutés à nos dates pour permettre le fonctionnement du code.
     Afin de ne pas perturber la lecture de l’interface, nous avons choisi de représenter les années seulement avec les deux derniers
     chiffres. Ainsi l’utilisateur ne s’aperçoit pas qu’en sélectionnant l’année 30, à savoir 1830, la machine exécute sa recherche pour l’année 2030.
     """)

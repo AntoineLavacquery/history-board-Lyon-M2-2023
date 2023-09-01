@@ -37,7 +37,7 @@ def make_sidebar_foot(url):
         st.markdown(sidebar_data["markdown"])
 
 st.set_page_config(**page_config_params)
-make_sidebar_foot("https://github.com/AntoineLavacquery/history-board-Lyon-M2-2023")
+make_sidebar_foot("https://github.com/AntoineLavacquery/history-board-Lyon-M2-2023/blob/main/Accueil.py")
 
 title = "Les agents de change auprès de la Bourse de Lyon, première moitié du XIXe siècle"
 
@@ -46,20 +46,19 @@ st.markdown("## " + title)
 
 st.markdown(
     """
-    ---
     #### Présentation
     Nous présentons, au travers de cette interface, la **mise en oeuvre et le regroupement des visualisations** développées pour
     argumenter le propos de notre étude sur le groupe des agents de change lyonnais de la première moitiée du XIXe siècle. L'idée poursuivie au sein de ces
     pages n'est pas de copier ou reformuler le propos tenus au sein du mémoire ou au sein des annexes consacrées aux humanités numériques, mais 
     bien d'expliquer davantage et avec une orientation plus technique les caractéristiques de ces visualisations.
 
-    Nous détaillons ici les grandes différences avec les versions "papiers" du le mémoire :
+    Nous détaillons ici les grandes différences avec les versions "papiers" du mémoire :
     1. Une partie des visualisations contenue au sein de ces pages ne sont pas disponibles ici.
     2. Elles sont toutes interactives. Cette interactivité peut être **faible**, par exemple dans le cas du diagramme en barre
     sur le prix des charges ou **forte** voire **indispensables**, comme dans le cas de la visualisation de la répartition géographique.
-    3. Le plus souvent, nous présentons les données ayant servies à constituer les visualisation mais toujours en second plan (onglet ou menu déroullant).
-    Le fait qu'il soit nécessaire de consulter ces pages dans certains cas nous a conduit à ne pas obstruer l'information les données brutes.
-    L'interface est prévue pour être **consultée rapidemen**, pendant la lecture.
+    3. Le plus souvent, nous présentons les données ayant servies à constituer les visualisations mais toujours en second plan (onglet ou menu déroulant).
+    Le fait qu'il soit nécessaire de consulter ces pages dans certains cas nous a conduit à ne pas obstruer l'information avec les données brutes.
+    L'interface est prévue pour être **consultée rapidement**, pendant la lecture.
 
     Le propos que nous adoptons dans ces pages cherche avant tout à être succint. L'idée est d'expliquer les informations essentielles
     pour comprendre les démarches qui ont initié les visualisations. Nous expliquons également les raisons nous ayant conduit à en effectuer
@@ -68,12 +67,13 @@ st.markdown(
     #### Code source
     Sur les traitements informatiques qui ne trouvent pas leurs place au sein de cette interface sont disponibles en ligne :
     https://github.com/AntoineLavacquery/history-board-Lyon-M2-2023/tree/main/notebooks. Surtout utilisés
-    en tant que qu'outils facilitateur de la recherche (ou même simplement d'experimentation), ils n'ont pas vocation à être présentés
+    en tant que qu'outils facilitateurs de la recherche (ou même simplement d'expérimentation), ils n'ont pas vocation à être présentés
     en tant que tel.
     """
 )
 
-st.error("""En cas d'erreur ou de blocage dans la période avant soutenance, ne pas hésiter à m'envoyer un mail :
+st.error("""Le chargement des pages peut être long. Ne pas hésiter à rafraichir la page si une erreur apparait.
+         En cas d'erreur ou de blocage dans la période avant soutenance, ne pas hésiter à m'envoyer un mail :
          antoine.lavacquery@univ-lyon3.fr.
          """,
          icon="⚠️")

@@ -10,19 +10,18 @@ from neo4jtools import *
 from Accueil import page_config_params, make_sidebar_foot
 
 st.set_page_config(**page_config_params)
-make_sidebar_foot("https://www.univ-lyon3.fr/medias/photo/udl-lyon3-web_1493035760450-png?ID_FICHE=239744&INLINE=FALSE")
+make_sidebar_foot("https://github.com/AntoineLavacquery/history-board-Lyon-M2-2023/blob/main/pages/4_4._Origines_sociales.py")
 
 st.markdown("""## 6. Explorateur de la base de données""")
 
-st.markdown("""Cette page donne un apperçu de la base de donnée de l'organisation des données au sein de la base Neo4J.
-            L'affichage qui suit sert d'exemple, en affichant les transmission de charges entre les agents de change.""")
+st.markdown("""Cette page donne un aperçu de la base de données et de leur organisation au sein de la base Neo4J.
+            L'affichage qui suit sert d'exemple, en affichant les transmissions de charges entre les agents de change.""")
 
-# --- Tous les agents de change entre 1815 et 1852
+# --- Tous les agents de change
 query = """
 MATCH (v)-[vc:VENTE_CHARGE {type_charge: "agent de change"}]-(a)
 RETURN v, vc, a
 """
-
 
 data = get_neo4j_results_of(query)
 

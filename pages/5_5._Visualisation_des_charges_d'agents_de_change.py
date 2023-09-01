@@ -37,7 +37,7 @@ def make_sidebar_foot(url):
         st.markdown(sidebar_data["markdown"])
 
 st.set_page_config(**page_config_params)
-make_sidebar_foot("https://github.com/AntoineLavacquery/history-board-Lyon-M2-2023")
+make_sidebar_foot("https://github.com/AntoineLavacquery/history-board-Lyon-M2-2023/blob/main/pages/5_5._Visualisation_des_charges_d'agents_de_change.py")
 
 
 st.markdown("## 5. Visualisation des charges d'agents de change")
@@ -50,7 +50,7 @@ st.markdown(
     Plusieurs points sont à noter pour la lecture de ce graphique :
     - En ordonnée : à chaque numéro correspond une charge. Aucun ordre n'a été défini, les numéros représentent
     un indice et non une valeur. Ils facilitent ainsi la lecture et le repérage dans au sein du graphique.
-    - En abscisses : échalle de temps, l'unité est l'année.
+    - En abscisse : échelle de temps, l'unité est l'année.
     - Survoler le centre d'une barre fait apparaitre les informations sur l'agent représenté. 
 """)
 
