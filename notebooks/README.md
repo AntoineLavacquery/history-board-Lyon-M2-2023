@@ -1,4 +1,4 @@
-# Informations
+## Informations
 
 Cette partie concerne les traitements effectués pour la recherche qui ne donnent aucun résultat définitif au sein du mémoire.
 Nous y retrouvons :

@@ -126,7 +126,7 @@ bins_start = 15
 bins_end = 70
 bins_size = 5
 
-# --- Construction d'un histogramme pour constituer les infos affichées lors du survole de la souris
+# --- Construction d'un histogramme pour constituer les infos affichées lors du survol de la souris
 bins = list(range(bins_start, bins_end, bins_size))
 hist_data, bin_edges = np.histogram(df_yn['age_charge'], bins=bins) # calcul de la distribution des âges pour l'histogramme
 
@@ -205,10 +205,10 @@ fig_dble.update_traces(histnorm='probability density') # Normalisation de l'hist
 # Set layout details
 fig_dble.update_layout(
     barmode='overlay',
-    title_text="Graphique 3.B. : Distribution de la probabilité des âges au moment de l'entrée en charge, séparation en deux groupes",
+    title_text="Graphique 3.B. : Distribution de la fréquence des âges au moment de l'entrée en charge, séparation en deux groupes",
     xaxis_title_text="Âge au moment de l'entrée en charge",
     xaxis_range=[15, 70],
-    yaxis_title_text='Densité de probabilité',
+    yaxis_title_text='Fréquence',
     yaxis_range=[0, 0.06],
     bargap=0,
     height=500
@@ -218,9 +218,9 @@ st.plotly_chart(fig_dble, use_container_width=True)
 # --- Interprétation
 st.markdown(f"""
         Notre échantillon est constitué de **{len(df_fam)} individus**. Autrement dit, {len(df_fam)} agents de change ont au moins un membre
-        de leur famille qui est ou a été agent de change. Le reste des agents de change, c'est à dire la population totale
+        de leur famille qui est ou a été agent de change. Le reste des agents de change, c'est-à-dire la population totale
         (**{len(df)}**) retranchée de notre premier échantillon, est de **{len(df_other)}**.\n
-        Puisque la différence dans les effectifs est très importantes (quasiment multipliée par 10) nous avons choisi d'opérer une
+        Puisque la différence dans les effectifs est très importante (quasiment multipliée par 10) nous avons choisi d'opérer une
         **normalisation des histogrammes**. Elle permet de les rendre comparables entre eux et évite que l'échantillon le plus faible
         soit écrasé par le reste de la population statistique.
         """)
@@ -327,8 +327,6 @@ st.plotly_chart(fig_moy_year, use_container_width=True)
 st.markdown("""
             Ce graphique représente la moyenne des durées d'exercice des agents de change par année.
             """)
-
-
 
 
 with st.expander("Requête générale"):

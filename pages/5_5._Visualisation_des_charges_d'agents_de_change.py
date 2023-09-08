@@ -49,7 +49,7 @@ st.markdown(
     Nous avons choisi de représenter le passage des charges de main en main sur une échelle temporelle.
     Plusieurs points sont à noter pour la lecture de ce graphique :
     - En ordonnée : à chaque numéro correspond une charge. Aucun ordre n'a été défini, les numéros représentent
-    un indice et non une valeur. Ils facilitent ainsi la lecture et le repérage dans au sein du graphique.
+    un indice et non une valeur. Ils facilitent ainsi la lecture et le repérage au sein du graphique.
     - En abscisse : échelle de temps, l'unité est l'année.
     - Survoler le centre d'une barre fait apparaitre les informations sur l'agent représenté. 
 """)
@@ -108,7 +108,7 @@ connect_strands(all)
 
 fig = go.Figure()
 
-# Traçage des bandes des bandes grises signifiant les décennies
+# Traçage des bandes grises signifiant les décennies
 for i in range(1700, 2000, 20):  # Pas de 20 pour alterner
     fig.add_shape(
         go.layout.Shape(

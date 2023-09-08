@@ -94,9 +94,9 @@ fig1_pie = px.pie(df_pp_count1,
 st.markdown(f"""
             ## 4. Origines sociales
 
-            Cette page décrit statistiquement les origines sociales des agents de change. Nous choisissons de cronstruire les graphiques,
-            à partir des données profession du père des agents de change et du père de leurs épouses. Nous récupérerons **{len(df0)}** cas pour lesquels
-            nous connaissons au moins une profession. Pareillement, la répartition dans le cas des épouse nous utilisons **{len(df1)}** individus.
+            Cette page décrit statistiquement les origines sociales des agents de change. Nous choisissons de construire les graphiques,
+            à partir des données des professions du père des agents de change et du père de leurs épouses. Nous récupérerons **{len(df0)}** cas pour lesquels
+            nous connaissons au moins une profession. Pareillement, la répartition dans le cas des épouses nous utilisons **{len(df1)}** individus.
             """)
 
 tab0_pie, tab0_bar, tab0_q = st.tabs(["Diagramme sectoriel", "Diagramme en bâton", "Requête"])

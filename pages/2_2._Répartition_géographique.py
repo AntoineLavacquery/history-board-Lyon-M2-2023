@@ -43,8 +43,6 @@ for d in final_data:
 df = pd.DataFrame(final_data)
 df = df.drop_duplicates()
 
-
-
 @st.cache_data(show_spinner="Chargement de la carte...", experimental_allow_widgets=True)
 def make_map(df):
     # Liste des colonnes à conserver (toutes les autres colonnes)
@@ -199,18 +197,18 @@ st.markdown(
     """
     La construction de la carte interactive passe par deux grandes étapes : la préparation des données et la paramétrisation
     des bibliothèques de géovisualisation. Nous nous concentrerons uniquement sur les points notables de ces étapes.
-    Les données source de la carte interactive sont représentées par des adresses. Stockées dans notre base de données, elles 
+    Les données sources de la carte interactive sont représentées par des adresses. Stockées dans notre base de données, elles 
     sont représentées par des nœuds de type LIEU. À chaque lieu correspond un nœud. Nous avions envisagé d’encoder les villes
-    dans un type de nœud distinct des noms de rue avant d’abandonner cette solution car elle ne présentait aucun avantage et rendait
+    dans un type de nœud distinct des noms de rue avant d’abandonner cette solution, car elle ne présentait aucun avantage et rendait
     la manipulation confuse. Chaque nom de rue possède une propriété "adresse_historique" et "adresse_actuelle" et de coordonnées
-    géographiques issues du geoparser de Google.
+    géographiques issues du *geoparser* de Google.
 
-    Nous construisons notre géo visualisation sur la bibliothèque open source Folium, basée sur la bibliothèque java Leaflet.
-    Sur le versant du paramétrage de cette géovisualisation un paramètre propre aux études en histoire complique le fonctionnement de
+    Nous construisons notre géovisualisation sur la bibliothèque open source Folium, basée sur la bibliothèque java Leaflet.
+    Sur le versant du paramétrage de cette géovisualisation, un paramètre propre aux études en histoire complique le fonctionnement de
     la visualisation. Très peu documentée au moment de réaliser cette étude, une erreur survient systématiquement au sein du paramètre
     définissant les années lorsque nous passons notre tranche du XIXe siècle. Il s’avère en effet que le système de gestion du temps s’appuie 
-    sur l’heure Unix (ou Posix) fondée sur le nombre de seconde écoulée depuis le 1er janvier 1970 à minuit. Toute date antérieure à
-    cette seconde zéro provoque le dysfonctionnement du module. Il est donc nécessaire, dans l’état actuel du code de ces bibliothèques
+    sur l’heure Unix (ou Posix) fondée sur le nombre de secondes écoulée depuis le 1er janvier 1970 à minuit. Toute date antérieure à
+    cette seconde zéro provoque le dysfonctionnement du module. Il est donc nécessaire, dans l’état actuel du code de ces bibliothèques,
     de "tricher" sur les dates. Par conséquent, deux siècles ont été ajoutés à nos dates pour permettre le fonctionnement du code.
     Afin de ne pas perturber la lecture de l’interface, nous avons choisi de représenter les années seulement avec les deux derniers
     chiffres. Ainsi l’utilisateur ne s’aperçoit pas qu’en sélectionnant l’année 30, à savoir 1830, la machine exécute sa recherche pour l’année 2030.
